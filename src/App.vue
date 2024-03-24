@@ -74,7 +74,7 @@ onMounted(() => {
         renderer.render( scene, camera );
     }
 
-    document.addEventListener("resize", onResize);
+    window.addEventListener("resize", onResize);
     animate();
 })
 
