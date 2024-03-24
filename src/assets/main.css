@@ -1,0 +1,23 @@
+@import './base.css';
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    padding: 1rem;
+    max-width: 80ch;
+    margin-inline: auto;
+    font-size: 1.2rem;
+}
+
+p {
+    margin-block: 0.5rem;
+}
+
+.bob {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
