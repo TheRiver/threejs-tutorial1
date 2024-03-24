@@ -36,11 +36,23 @@ import * as THREE from 'three';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
-let renderer = new THREE.WebGLRenderer({ alpha: true });
+let renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+renderer.setPixelRatio( window.devicePixelRatio );
 
 let geometry = new THREE.BoxGeometry( 1, 1, 1 );
-let material = new THREE.MeshBasicMaterial( { color: "cornflowerblue" } );
+// let material = new THREE.MeshBasicMaterial( { color: "cornflowerblue" } );
+let material = new THREE.MeshPhongMaterial({color: 'cornflowerblue'});
 let cube = new THREE.Mesh( geometry, material );
+
+const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 3);
+directionalLight.position.set(1, 1, 10);
+directionalLight.target.position.set(0, 0, 0);
+
+const ambientLight = new THREE.AmbientLight(0xFFFFFF, 0.2);
+
+
+
+
 
 window.addEventListener('resize', onResize, false); //When window is resized, call onResize() function.
 
@@ -63,8 +75,11 @@ onMounted(() => {
     document.body.appendChild( renderer.domElement );
 
     scene.add( cube );
+    scene.add( directionalLight );
+    scene.add( directionalLight.target );
+    scene.add( ambientLight );
 
-    camera.position.z = 6;
+    camera.position.z = 5;
 
     function animate() {
         if (!renderer) return;
@@ -72,6 +87,7 @@ onMounted(() => {
 
         cube.rotation.x += 0.01;
         cube.rotation.y += 0.01;
+
         renderer.render( scene, camera );
     }
 
