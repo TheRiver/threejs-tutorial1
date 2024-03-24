@@ -38,6 +38,10 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 let renderer = new THREE.WebGLRenderer({ alpha: true });
 
+let geometry = new THREE.BoxGeometry( 1, 1, 1 );
+let material = new THREE.MeshBasicMaterial( { color: "cornflowerblue" } );
+let cube = new THREE.Mesh( geometry, material );
+
 window.addEventListener('resize', onResize, false); //When window is resized, call onResize() function.
 
 const val = Math.random();
@@ -58,9 +62,6 @@ onMounted(() => {
     renderer.domElement.classList.add("bob");
     document.body.appendChild( renderer.domElement );
 
-    const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    const material = new THREE.MeshBasicMaterial( { color: "cornflowerblue" } );
-    const cube = new THREE.Mesh( geometry, material );
     scene.add( cube );
 
     camera.position.z = 6;
@@ -89,6 +90,8 @@ onBeforeUnmount(() => {
 
     try {
         renderer.dispose();
+        geometry.dispose();
+        material.dispose();
     } catch(e) {
         console.error("Unable to dispose of renderer", e);
     } finally {
